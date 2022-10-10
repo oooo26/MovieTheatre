@@ -36,6 +36,7 @@ This is project 2 for DSA5101: use Django to build a movie theatre site.
 -   [ ] Better description/theme/layout;
 -   [ ] Check wrong input;
 -   [ ] Feedback message;
+-   [ ] Pool coding :smiling_face_with_tear:;
 -   [ ] ...
 
 ## Contributors
