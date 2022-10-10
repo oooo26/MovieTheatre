@@ -35,6 +35,7 @@ This is project 2 for DSA5101: use Django to build a movie theatre site.
 
 - [ ] Out of bound if movie title is too long;
 - [ ] Spacing in rows;
+- [ ] Duplicate items if add twice;
 - [ ] Better navigation;
 - [ ] Better description/theme/layout;
 - [ ] Check wrong input;
