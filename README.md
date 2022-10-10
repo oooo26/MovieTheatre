@@ -4,44 +4,47 @@ This is project 2 for DSA5101: use Django to build a movie theatre site.
 
 ## Quick Start
 
-1.   Install [supported database](https://docs.djangoproject.com/en/4.1/topics/install/#database-installation) and re-configure `settings.py`;
+1. Install [supported database](https://docs.djangoproject.com/en/4.1/topics/install/#database-installation) and re-configure `settings.py`;
+2. (Optional) Install [selenium](https://pypi.org/project/selenium/), [ChromeDriver](https://chromedriver.chromium.org/), [pyquery](https://pypi.org/project/pyquery/) to support "Add movie from GV link";
+3. Migrate database and django project:
 
-2.   (Optional) Install [selenium](https://pypi.org/project/selenium/), [ChromeDriver](https://chromedriver.chromium.org/), [pyquery](https://pypi.org/project/pyquery/) to support "Add movie from GV link";
+   ```bash
+   $ python manager.py makemigrations about
+   $ python manager.py migrate
+   ```
+4. Load `saved_data.json` for some simple examples:
 
-3.   Load `saved_data.json` for some simple examples:
+   ```bash
+   $ python manager.py loaddata saved_data.json
+   ```
+5. Run server:
 
-     ```bash
-     $ python manager.py loaddata saved_data.json
-     ```
-
-4.   Run server:
-
-     ```bash
-     $ python manager.py runserver
-     ```
+   ```bash
+   $ python manager.py runserver
+   ```
 
 ## Site Structure
 
--   `/`: Redirect to `/about-us/`;
--   `/admin/`: Admin site. Super user name and password are both "admin";
--   `/about-us/`: About us page;
--   `/about-us/movie/`: Movie theatre page;
--   `/about-us/movie/subsribe/`: Subscribe new movie;
+- `/`: Redirect to `/about-us/`;
+- `/admin/`: Admin site. Super user name and password are both "admin";
+- `/about-us/`: About us page;
+- `/about-us/movie/`: Movie theatre page;
+- `/about-us/movie/subsribe/`: Subscribe new movie;
 
 ## TODO list
 
--   [ ] Out of bound if movie title is too long;
--   [ ] Spacing in rows;
--   [ ] Better navigation;
--   [ ] Better description/theme/layout;
--   [ ] Check wrong input;
--   [ ] Feedback message;
--   [ ] Pool coding :smiling_face_with_tear:;
--   [ ] ...
+- [ ] Out of bound if movie title is too long;
+- [ ] Spacing in rows;
+- [ ] Better navigation;
+- [ ] Better description/theme/layout;
+- [ ] Check wrong input;
+- [ ] Feedback message;
+- [ ] Pool coding :smiling_face_with_tear:;
+- [ ] ...
 
 ## Contributors
 
--   Shen Shuyuan
--   Wang Yuhua
--   Chen Yanrong
--   Huang Junhao
+- Shen Shuyuan
+- Wang Yuhua
+- Chen Yanrong
+- Huang Junhao
