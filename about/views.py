@@ -55,18 +55,23 @@ def add_movie_from_link(gv_link):
     release_date = release_date[-4:] + release_date[2:-4] + release_date[:2]
 
     if not name or not poster_url or duration<=0 or not release_date or not grade_id:
-        return
+        return True
 
-    movie = Movie(
-        name=name,
-        poster_url=poster_url,
-        duration=timedelta(minutes=duration),
-        release_date=release_date,
-        grade_id=grade_id,
-        purchase_url=gv_link
-    )
-    movie.save()
-    return
+    existing_movies = Movie.objects.values('name')
+    existing_movies_names = [list(i.values())[0] for i in existing_movies]
+    if name in existing_movies_names:
+        return False
+    else:
+        movie = Movie(
+            name=name,
+            poster_url=poster_url,
+            duration=timedelta(minutes=duration),
+            release_date=release_date,
+            grade_id=grade_id,
+            purchase_url=gv_link
+        )
+        movie.save()
+        return True
 
 
 def subscribe_movie(request, sub_type):
@@ -75,14 +80,25 @@ def subscribe_movie(request, sub_type):
             form = SubscribeForm(request.POST)
             if form.is_valid():
                 form.instance.duration *= 60
-                form.save()
+                existing_movies = Movie.objects.values('name')
+                existing_movies_names = [list(i.values())[0] for i in existing_movies]
+                if form.instance.name in existing_movies_names:
+                    from django.contrib import messages
+                    messages.error(request, 'The movie already exists')
+                    return HttpResponseRedirect(reverse('about:subscribe', args=(sub_type,)))
+                else:
+                    form.save()
                 return HttpResponseRedirect(
                     reverse("about:subscribe", args=(sub_type,)))
         elif sub_type == 2:
             gv_link = request.POST.get("gv_link")
-            add_movie_from_link(gv_link)
+            result = add_movie_from_link(gv_link)
+            if not result:
+                from django.contrib import messages
+                messages.error(request, 'The movie already exists')
             return HttpResponseRedirect(
                 reverse("about:subscribe", args=(sub_type,)))
+
     else:
         form = SubscribeForm()
     return render(request, "about/sub.html", {"form": form})

@@ -43,20 +43,22 @@
             </div>
             <div class="row p-md-4">
                 {% for movie in movies %}
-                <div class="col-sm-auto">
+                <div class="col-sm-auto" style="margin: 20px 10px">
                     <div class="card" style="width: 250px; height: 580px">
                         <img
                             class="card-img-top"
                             src="{{ movie.poster_url }}"
                             alt="movie{{ forloop.counter }}"
                         />
-                        <div class="card-body">
+                        <div class="card-body" style="overflow-y:auto">
                             <h5 class="card-title">{{ movie.name }}</h5>
                             <p class="card-text">
                                 Duration: {{ movie.duration }}<br />
                                 Release: {{ movie.release_date }} <br />
                                 Grade: {{movie.grade.level}}
                             </p>
+                        </div>
+                        <div class="card-body">
                             <form action="{% url 'about:unsubscribe' movie.id %}" method="POST">
                                 {% csrf_token %}
                                 <div class="text-center">

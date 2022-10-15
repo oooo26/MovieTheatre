@@ -4,24 +4,24 @@ This is project 2 for DSA5101: use Django to build a movie theatre site.
 
 ## Quick Start
 
-1. Install [supported database](https://docs.djangoproject.com/en/4.1/topics/install/#database-installation) and re-configure `MovieTheatre/settings.py`;
+1. Install [supported database](https://docs.djangoproject.com/en/4.1/topics/install/#database-installation) and re-configure `settings.py`;
 2. (Optional) Install [selenium](https://pypi.org/project/selenium/), [ChromeDriver](https://chromedriver.chromium.org/), [pyquery](https://pypi.org/project/pyquery/) to support "Add movie from GV link";
 3. Migrate database and django project:
 
    ```bash
-   $ python manager.py makemigrations about
-   $ python manager.py migrate
+   $ python manage.py makemigrations about
+   $ python manage.py migrate
    ```
 4. Create [super user](https://docs.djangoproject.com/en/4.1/intro/tutorial02/#creating-an-admin-user) for admin site;
 5. Load `saved_data.json` for some simple examples:
 
    ```bash
-   $ python manager.py loaddata saved_data.json
+   $ python manage.py loaddata saved_data.json
    ```
 6. Run server:
 
    ```bash
-   $ python manager.py runserver
+   $ python manage.py runserver
    ```
 
 ## Site Structure
@@ -41,7 +41,7 @@ This is project 2 for DSA5101: use Django to build a movie theatre site.
 - [ ] Better description/theme/layout;
 - [ ] Check wrong input;
 - [ ] Feedback message;
-- [ ] Poor coding :smiling_face_with_tear:;
+- [ ] Pool coding :smiling_face_with_tear:;
 - [ ] ...
 
 ## Contributors
