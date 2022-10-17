@@ -6,6 +6,7 @@ from datetime import timedelta
 from .models import Author, Movie, Grade
 from .forms import SubscribeForm
 
+
 # Create your views here.
 
 
@@ -57,6 +58,7 @@ def add_movie_from_link(gv_link):
     if not name or not poster_url or duration<=0 or not release_date or not grade_id:
         return True
 
+
     existing_movies = Movie.objects.values('name')
     existing_movies_names = [list(i.values())[0] for i in existing_movies]
     if name in existing_movies_names:
@@ -72,6 +74,7 @@ def add_movie_from_link(gv_link):
         )
         movie.save()
         return True
+
 
 
 def subscribe_movie(request, sub_type):

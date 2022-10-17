@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/MovieTheatre-main.iml" filepath="$PROJECT_DIR$/.idea/MovieTheatre-main.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/MovieTheatre.iml" filepath="$PROJECT_DIR$/.idea/MovieTheatre.iml" />
+>>>>>>> Update
     </modules>
   </component>
 </project>

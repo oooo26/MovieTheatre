@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="0eb1d641-ec9f-47f7-b77e-5023ddd20546" name="Default Changelist" comment="" />
+    <list default="true" id="0eb1d641-ec9f-47f7-b77e-5023ddd20546" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/MovieTheatre.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieTheatre/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/MovieTheatre/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/about/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about/templates/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/about/templates/about/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about/templates/about/movie1.html" beforeDir="false" afterPath="$PROJECT_DIR$/about/templates/about/movie1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about/templates/about/sub.html" beforeDir="false" afterPath="$PROJECT_DIR$/about/templates/about/sub.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/about/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
