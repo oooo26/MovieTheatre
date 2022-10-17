@@ -80,11 +80,11 @@ WSGI_APPLICATION = "MovieTheatre.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # 默认
-        'NAME': 'movie', # 连接的数据库
-        'HOST': '127.0.0.1', # mysql的ip地址
-        'PORT': 3306,  # mysql的端口
-        'USER': 'root', # mysql的用户名
-        'PASSWORD': 'Sue6231216', # mysql的密码
+        'NAME': 'movietheatre', # 连接的数据库
+        # 'HOST': '127.0.0.1', # mysql的ip地址
+        # 'PORT': 3306,  # mysql的端口
+        # 'USER': 'root', # mysql的用户名
+        # 'PASSWORD': 'Sue6231216', # mysql的密码
         'OPTIONS': {
             'read_default_file': 'my.cnf',
             'init_command': "SET default_storage_engine=INNODB; \
