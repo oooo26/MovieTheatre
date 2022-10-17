@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +56,9 @@ ROOT_URLCONF = "MovieTheatre.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -76,13 +79,18 @@ WSGI_APPLICATION = "MovieTheatre.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.mysql', # 默认
+        'NAME': 'movie', # 连接的数据库
+        'HOST': '127.0.0.1', # mysql的ip地址
+        'PORT': 3306,  # mysql的端口
+        'USER': 'root', # mysql的用户名
+        'PASSWORD': 'Sue6231216', # mysql的密码
         'OPTIONS': {
             'read_default_file': 'my.cnf',
             'init_command': "SET default_storage_engine=INNODB; \
-                             SET sql_mode='STRICT_TRANS_TABLES';"
+            SET sql_mode='STRICT_TRANS_TABLES';"
         },
-    }
+}
 }
 
 
