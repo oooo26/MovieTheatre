@@ -26,7 +26,7 @@ class MovieView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["movies"] = Movie.objects.order_by("-release_date")
+        context["movies"] = Movie.objects.order_by("-star", "-release_date")
         return context
 
 
@@ -51,6 +51,7 @@ def add_movie_from_link(gv_link):
     release_date = doc(
         "p[ng-bind-html='filminfo.formattedReleaseDate']").text()
     grade = doc("small[ng-show]:first-child").text().split()[0][1:]
+    star = False
 
     grade_id = Grade.objects.filter(level=grade)[0].id
     release_date = release_date[-4:] + release_date[2:-4] + release_date[:2]
@@ -70,7 +71,8 @@ def add_movie_from_link(gv_link):
             duration=timedelta(minutes=duration),
             release_date=release_date,
             grade_id=grade_id,
-            purchase_url=gv_link
+            purchase_url=gv_link,
+            star = star
         )
         movie.save()
         return True
@@ -83,6 +85,7 @@ def subscribe_movie(request, sub_type):
             form = SubscribeForm(request.POST)
             if form.is_valid():
                 form.instance.duration *= 60
+                form.instance.star = False
                 existing_movies = Movie.objects.values('name')
                 existing_movies_names = [list(i.values())[0] for i in existing_movies]
                 if form.instance.name in existing_movies_names:
@@ -111,7 +114,18 @@ def unsubscribe_movie(request, pk):
     if request.method == "POST":
         movie = get_object_or_404(Movie, pk=pk)
         movie.delete()
-    context = {
-        "movies": Movie.objects.order_by("-release_date")
-    }
     return HttpResponseRedirect(reverse('about:movie'))
+
+def star_movie(request, pk):
+    if request.method == "POST":
+        movie = get_object_or_404(Movie, pk=pk)
+        movie.star = True
+        movie.save()
+    return HttpResponseRedirect(reverse('about:movie')) 
+
+def unstar_movie(request, pk):
+    if request.method == "POST":
+        movie = get_object_or_404(Movie, pk=pk)
+        movie.star = False
+        movie.save()
+    return HttpResponseRedirect(reverse('about:movie')) 

@@ -28,6 +28,7 @@ class Movie(models.Model):
     # genre = models.CharField(max_length=50, blank=True, null=True)
     # gv_id = models.CharField(max_length=10, blank=True, null=True)
     purchase_url = models.CharField(max_length=200, blank=True, null=True)
+    star = models.BooleanField()
 
     def __str__(self):
         return self.name
