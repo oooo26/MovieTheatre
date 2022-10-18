@@ -112,6 +112,6 @@ def unsubscribe_movie(request, pk):
         movie = get_object_or_404(Movie, pk=pk)
         movie.delete()
     context = {
-        "movies": Movie.objects.all()[:10]
+        "movies": Movie.objects.order_by("-release_date")
     }
-    return render(request, "about/movie1.html", context)
+    return HttpResponseRedirect(reverse('about:movie'))
