@@ -247,7 +247,7 @@
             var xhr = new XMLHttpRequest()
             xhr.onload = function() {
                 test.innerHTML += this.responseText;
-              }
+            }
             xhr.open("GET", "star/" + id, true)
             xhr.send()
         }
@@ -261,7 +261,7 @@
             var xhr = new XMLHttpRequest()
             xhr.onload = function() {
                 test.innerHTML += this.responseText;
-              }
+            }
             xhr.open("GET", "unstar/" + id, true)
             xhr.send()
         }
