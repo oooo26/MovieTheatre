@@ -65,14 +65,12 @@
                         <form action="{% url 'about:subscribe' 1 %}" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
-                                {% for field in form %}
-                                {% if field.name != "star" %}
+                                {% for field in form %} {% if field.name != "star" %}
                                 <label class="form-label" for="{{ field.id_for_label }}">
                                     {{ field.label_tag }}
                                 </label>
                                 <p>{{ field }}</p>
-                                {% endif %}
-                                {% endfor %}
+                                {% endif %} {% endfor %}
                             </div>
                             <input class="btn btn-primary" type="submit" value="Add" />
                             <a
@@ -132,7 +130,7 @@
         async
         src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js"
         crossorigin="anonymous"
-    ></script>
+    />
     <script type="importmap">
         {
             "imports": {

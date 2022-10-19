@@ -10,6 +10,6 @@ urlpatterns = [
     path("subscribe/", lambda req: redirect("about:subscribe", 1)),
     path("subscribe/<int:sub_type>", views.subscribe_movie, name="subscribe"),
     path("unsubscribe/<int:pk>", views.unsubscribe_movie, name="unsubscribe"),
-    path("star/<int:pk>", views.star_movie, name="star"),
-    path("unstar/<int:pk>", views.unstar_movie, name="unstar")
+    path("movies/star/<int:pk>", views.star_movie, name="star"),
+    path("movies/unstar/<int:pk>", views.unstar_movie, name="unstar")
 ]

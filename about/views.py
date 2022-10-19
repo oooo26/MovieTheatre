@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from datetime import timedelta
 from .models import Author, Movie, Grade
@@ -116,16 +116,32 @@ def unsubscribe_movie(request, pk):
         movie.delete()
     return HttpResponseRedirect(reverse('about:movie'))
 
+# def star_movie(request, pk):
+#     if request.method == "POST":
+#         movie = get_object_or_404(Movie, pk=pk)
+#         movie.star = True
+#         movie.save()
+#     return HttpResponseRedirect(reverse('about:movie')) 
+
+# def unstar_movie(request, pk):
+#     if request.method == "POST":
+#         movie = get_object_or_404(Movie, pk=pk)
+#         movie.star = False
+#         movie.save()
+#     return HttpResponseRedirect(reverse('about:movie')) 
+
 def star_movie(request, pk):
-    if request.method == "POST":
+    if request.method == 'GET':
         movie = get_object_or_404(Movie, pk=pk)
         movie.star = True
         movie.save()
-    return HttpResponseRedirect(reverse('about:movie')) 
+        return HttpResponse(f"Star {movie.name} successfully!")
+    return HttpResponse("Something error.")
 
 def unstar_movie(request, pk):
-    if request.method == "POST":
+    if request.method == 'GET':
         movie = get_object_or_404(Movie, pk=pk)
         movie.star = False
         movie.save()
-    return HttpResponseRedirect(reverse('about:movie')) 
+        return HttpResponse(f"Unstar {movie.name} successfully!")
+    return HttpResponse("Something error.")
