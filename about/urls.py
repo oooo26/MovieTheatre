@@ -11,5 +11,6 @@ urlpatterns = [
     path("subscribe/<int:sub_type>", views.subscribe_movie, name="subscribe"),
     path("unsubscribe/<int:pk>", views.unsubscribe_movie, name="unsubscribe"),
     path("movies/star/<int:pk>", views.star_movie, name="star"),
-    path("movies/unstar/<int:pk>", views.unstar_movie, name="unstar")
+    path("movies/unstar/<int:pk>", views.unstar_movie, name="unstar"),
+    path("movies/search", views.search_movie, name="search")
 ]

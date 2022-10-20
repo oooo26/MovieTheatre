@@ -145,3 +145,11 @@ def unstar_movie(request, pk):
         movie.save()
         return HttpResponse(f"Unstar {movie.name} successfully!")
     return HttpResponse("Something error.")
+
+def search_movie(request):
+    if request.method == 'POST':
+        keyword = request.POST['keyword']
+        movies = Movie.objects.filter(name__contains=keyword)
+        return render(request, "about/search.html", {"movies": movies, 'keyword': keyword})
+    else:
+        return render(request, "about/search.html", {})

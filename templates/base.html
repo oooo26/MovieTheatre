@@ -30,6 +30,11 @@
                 <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
             </li>
         </ul>
+        <form method=POST class="d-flex" role="search" style="padding: 0 0 0 650px" action="{% url 'about:search' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
     </div>
 </nav>
 <div class="container">
