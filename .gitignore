@@ -1,3 +1,5 @@
 my.cnf
 about/migrations
 **/__pycache__
+.idea
+

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.http import HttpResponseRedirect
+
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from datetime import timedelta
 from .models import Author, Movie, Grade
@@ -26,7 +27,7 @@ class MovieView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["movies"] = Movie.objects.order_by("-release_date")
+        context["movies"] = Movie.objects.order_by("-star", "-release_date")
         return context
 
 
@@ -51,27 +52,31 @@ def add_movie_from_link(gv_link):
     release_date = doc(
         "p[ng-bind-html='filminfo.formattedReleaseDate']").text()
     grade = doc("small[ng-show]:first-child").text().split()[0][1:]
+    star = False
 
     grade_id = Grade.objects.filter(level=grade)[0].id
     release_date = release_date[-4:] + release_date[2:-4] + release_date[:2]
 
     if not name or not poster_url or duration<=0 or not release_date or not grade_id:
-        return
+        return True
 
-    movie = Movie(
-        name=name,
-        poster_url=poster_url,
-        duration=timedelta(minutes=duration),
-        release_date=release_date,
-        grade_id=grade_id,
-        purchase_url=gv_link
-    )
-    mo=Movie.objects.filter(name=movie.name)
-    if mo:
-        message.warning(request,"It exists!")
-        return
-    movie.save()
-    return
+
+    existing_movies = Movie.objects.values('name')
+    existing_movies_names = [list(i.values())[0] for i in existing_movies]
+    if name in existing_movies_names:
+        return False
+    else:
+        movie = Movie(
+            name=name,
+            poster_url=poster_url,
+            duration=timedelta(minutes=duration),
+            release_date=release_date,
+            grade_id=grade_id,
+            purchase_url=gv_link,
+            star = star
+        )
+        movie.save()
+        return True
 
 
 def subscribe_movie(request, sub_type):
@@ -80,14 +85,26 @@ def subscribe_movie(request, sub_type):
             form = SubscribeForm(request.POST)
             if form.is_valid():
                 form.instance.duration *= 60
-                form.save()
+                form.instance.star = False
+                existing_movies = Movie.objects.values('name')
+                existing_movies_names = [list(i.values())[0] for i in existing_movies]
+                if form.instance.name in existing_movies_names:
+                    from django.contrib import messages
+                    messages.error(request, 'The movie already exists')
+                    return HttpResponseRedirect(reverse('about:subscribe', args=(sub_type,)))
+                else:
+                    form.save()
                 return HttpResponseRedirect(
                     reverse("about:subscribe", args=(sub_type,)))
         elif sub_type == 2:
             gv_link = request.POST.get("gv_link")
-            add_movie_from_link(gv_link)
+            result = add_movie_from_link(gv_link)
+            if not result:
+                from django.contrib import messages
+                messages.error(request, 'The movie already exists')
             return HttpResponseRedirect(
                 reverse("about:subscribe", args=(sub_type,)))
+
     else:
         form = SubscribeForm()
     return render(request, "about/sub.html", {"form": form})
@@ -97,7 +114,34 @@ def unsubscribe_movie(request, pk):
     if request.method == "POST":
         movie = get_object_or_404(Movie, pk=pk)
         movie.delete()
-    context = {
-        "movies": Movie.objects.all()[:10]
-    }
-    return render(request, "about/movie1.html", context)
+    return HttpResponseRedirect(reverse('about:movie'))
+
+# def star_movie(request, pk):
+#     if request.method == "POST":
+#         movie = get_object_or_404(Movie, pk=pk)
+#         movie.star = True
+#         movie.save()
+#     return HttpResponseRedirect(reverse('about:movie')) 
+
+# def unstar_movie(request, pk):
+#     if request.method == "POST":
+#         movie = get_object_or_404(Movie, pk=pk)
+#         movie.star = False
+#         movie.save()
+#     return HttpResponseRedirect(reverse('about:movie')) 
+
+def star_movie(request, pk):
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, pk=pk)
+        movie.star = True
+        movie.save()
+        return HttpResponse(f"Star {movie.name} successfully!")
+    return HttpResponse("Something error.")
+
+def unstar_movie(request, pk):
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, pk=pk)
+        movie.star = False
+        movie.save()
+        return HttpResponse(f"Unstar {movie.name} successfully!")
+    return HttpResponse("Something error.")
